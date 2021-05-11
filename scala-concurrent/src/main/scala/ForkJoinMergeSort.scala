@@ -14,10 +14,8 @@ object ForkJoinMergeSort extends App {
 
     override def compute(): List[Int] = {
       val n = list.length / 2
-      if (n == 0) list match {
-        case List() => Nil
-        case List(n) => List(n)
-      } else {
+      if (n == 0) list
+      else {
         val (left, right) = list.splitAt(n)
         val leftTask = new AggregateTask(left)
         val rightTask = new AggregateTask(right)
@@ -34,7 +32,6 @@ object ForkJoinMergeSort extends App {
           }
         }
         mergeRec(leftTask.join(), rightTask.join())
-
       }
     }
   }
